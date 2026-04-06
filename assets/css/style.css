@@ -27,7 +27,6 @@ body {
   overflow: visible;
 }
 
-/* Left half — text */
 .text-side {
   flex: 0 0 50%;
   padding: 60px 40px 60px 60px;
@@ -75,7 +74,6 @@ body {
   margin-top: 20px !important;
 }
 
-/* Curved SVG text */
 .curved-text {
   display: block;
   width: 100%;
@@ -88,7 +86,6 @@ body {
   margin-top: 0;
 }
 
-/* Right half — cake centered, blank top space offset */
 .cake-area {
   flex: 0 0 50%;
   position: relative;
@@ -99,8 +96,7 @@ body {
 
 .cake-frame {
   position: absolute;
-  /* PNG is 500x500 with ~30% blank at top.
-     Center horizontally, then shift up 15% to compensate for the blank space */
+
   width: 88%;
   height: 88%;
   left: 50%;
@@ -141,7 +137,6 @@ body {
   margin-top: 14px;
 }
 
-/* Confetti canvas — full screen overlay, pointer-events off so clicks pass through */
 #confetti-canvas {
   position: fixed;
   top: 0;

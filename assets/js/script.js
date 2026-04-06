@@ -55,7 +55,6 @@ function stopFlicker() {
   clearInterval(animInterval);
   showFrame(frameOut);
 
-  // Fade out entry song, then play blowout song
   fadeOut(entrySong, 800, () => {
     blowoutSong.currentTime = 0;
     blowoutSong.play().catch(() => {});
@@ -86,7 +85,7 @@ document.getElementById("cakeArea").addEventListener("click", () => {
   else blowCandle();
 });
 
-// ── Fade out helper ───────────────────────────────────────────
+// Fade out
 function fadeOut(audio, durationMs, onDone) {
   const startVol = audio.volume;
   const steps = 30;
@@ -106,7 +105,7 @@ function fadeOut(audio, durationMs, onDone) {
   }, interval);
 }
 
-// ── Falling confetti ──────────────────────────────────────────
+// Falling confetti
 const COLORS = [
   "#f5c842",
   "#f5a623",
@@ -177,7 +176,7 @@ function launchConfetti() {
   draw();
 }
 
-// ── Mic blow detection (silent) ───────────────────────────────
+//  Mic blow detection
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
   navigator.mediaDevices
     .getUserMedia({ audio: true })
@@ -198,9 +197,9 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       mic.connect(analyser);
 
       const data = new Uint8Array(analyser.frequencyBinCount);
-      const WINDOW = 40,
-        THRESHOLD = 60,
-        FRAMES_ABOVE = 30;
+      const WINDOW = 25,
+        THRESHOLD = 40,
+        FRAMES_ABOVE = 15;
       const volHistory = [];
 
       function detect() {
