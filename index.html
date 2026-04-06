@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Birthday Card 🎂</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="card">
+      <div class="text-side">
+        <div class="all-text">
+          <svg
+            class="curved-text"
+            viewBox="-10 0 420 55"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs><path id="arc1" d="M 0,48 Q 200,15 400,38" /></defs>
+            <text
+              fill="#f5c842"
+              font-family="Caveat, cursive"
+              font-size="38"
+              font-weight="700"
+            >
+              <textPath href="#arc1">Happy Legality, Kaykay:)</textPath>
+            </text>
+          </svg>
+
+          <svg
+            class="curved-text"
+            viewBox="-10 0 310 45"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs><path id="arc2" d="M 0,38 Q 150,12 300,28" /></defs>
+            <text fill="#f5a623" font-family="Caveat, cursive" font-size="28">
+              <textPath href="#arc2">Click anywhere except the cake</textPath>
+            </text>
+          </svg>
+
+          <svg
+            class="curved-text"
+            viewBox="-10 0 370 45"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs><path id="arc3" d="M 0,38 Q 180,12 360,28" /></defs>
+            <text fill="#f5a623" font-family="Caveat, cursive" font-size="26">
+              <textPath href="#arc3">Then, Blow the candle's out!</textPath>
+            </text>
+          </svg>
+
+          <svg
+            class="curved-text"
+            viewBox="-10 0 330 42"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs><path id="arc4" d="M 0,35 Q 160,10 320,25" /></defs>
+            <text
+              fill="#f5a623"
+              font-family="Caveat, cursive"
+              font-size="22"
+              opacity="0.85"
+            >
+              <textPath href="#arc4">( Sorry na late.. )</textPath>
+            </text>
+          </svg>
+
+          <div id="mic-hint" style="display: none"></div>
+        </div>
+      </div>
+
+      <div class="cake-area" id="cakeArea">
+        <img
+          id="frame_out"
+          src="images/cakeout.png"
+          class="cake-frame active"
+          alt="cake no flame"
+        />
+        <img
+          id="frame1"
+          src="images/cake1.png"
+          class="cake-frame"
+          alt="cake flame 1"
+        />
+        <img
+          id="frame2"
+          src="images/cake2.png"
+          class="cake-frame"
+          alt="cake flame 2"
+        />
+        <img
+          id="frame3"
+          src="images/cake3.png"
+          class="cake-frame"
+          alt="cake flame 3"
+        />
+      </div>
+    </div>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>
