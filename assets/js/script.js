@@ -10,30 +10,34 @@ const flickerFrames = [
 
 let animating = false;
 let animInterval = null;
-
-// ── Audio players ─────────────────────────────────────────────
 const entrySong = new Audio(SONG_ENTRY);
 const blowoutSong = new Audio(SONG_BLOWOUT);
 
-entrySong.loop = true; // loops while candle is lit
+entrySong.loop = true;
 entrySong.volume = 0.7;
 blowoutSong.loop = false;
 blowoutSong.volume = 0.8;
 
-// Browsers block autoplay — start entry song on very first click
 let entryStarted = false;
-document.addEventListener(
-  "click",
-  () => {
-    if (!entryStarted) {
-      entryStarted = true;
-      entrySong.play().catch(() => {});
-    }
-  },
-  { once: true },
-);
+function startEntryOnce() {
+  if (!entryStarted) {
+    entryStarted = true;
+    entrySong.play().catch(() => {});
+  }
+}
+document.addEventListener("click", startEntryOnce, { once: true });
+document.addEventListener("touchstart", startEntryOnce, { once: true });
 
-// ── Candle flicker ────────────────────────────────────────────
+// Resize confetti canvas when orientation changes
+window.addEventListener("resize", () => {
+  const canvas = document.getElementById("confetti-canvas");
+  if (canvas) {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+});
+
+// Candle flicker
 window.addEventListener("DOMContentLoaded", () => startFlicker());
 
 function showFrame(el) {
@@ -65,14 +69,11 @@ function stopFlicker() {
 
 function lightCandle() {
   clearConfetti();
-
-  // Stop blowout song, restart entry song
   blowoutSong.pause();
   blowoutSong.currentTime = 0;
   entrySong.currentTime = 0;
   entrySong.volume = 0.7;
   entrySong.play().catch(() => {});
-
   startFlicker();
 }
 
@@ -80,7 +81,15 @@ function blowCandle() {
   stopFlicker();
 }
 
-document.getElementById("cakeArea").addEventListener("click", () => {
+const cakeArea = document.getElementById("cakeArea");
+cakeArea.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (!animating) lightCandle();
+  else blowCandle();
+});
+
+cakeArea.addEventListener("touchend", (e) => {
+  e.preventDefault();
   if (!animating) lightCandle();
   else blowCandle();
 });
@@ -105,7 +114,7 @@ function fadeOut(audio, durationMs, onDone) {
   }, interval);
 }
 
-// Falling confetti
+// Confetti
 const COLORS = [
   "#f5c842",
   "#f5a623",
@@ -176,19 +185,18 @@ function launchConfetti() {
   draw();
 }
 
-//  Mic blow detection
+// Mic detection
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
   navigator.mediaDevices
     .getUserMedia({ audio: true })
     .then((stream) => {
       const micCtx = new AudioContext();
-      document.addEventListener(
-        "click",
-        () => {
-          if (micCtx.state === "suspended") micCtx.resume();
-        },
-        { once: true },
-      );
+
+      function resumeMic() {
+        if (micCtx.state === "suspended") micCtx.resume();
+      }
+      document.addEventListener("click", resumeMic, { once: true });
+      document.addEventListener("touchstart", resumeMic, { once: true });
 
       const mic = micCtx.createMediaStreamSource(stream);
       const analyser = micCtx.createAnalyser();
